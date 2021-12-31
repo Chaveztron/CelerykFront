@@ -1,5 +1,5 @@
 import React,{Fragment} from 'react';
-import { Nav } from 'rsuite';
+import { Nav, CustomProvider } from 'rsuite';
 import { HashRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
 
 import Sidenav from 'rsuite/Sidenav';
@@ -11,6 +11,8 @@ import Sidebar from 'rsuite/Sidebar';
 import Content from 'rsuite/Content';
 import Container from 'rsuite/Container';
 import Header from 'rsuite/Header';
+
+import Form from './containers/Form'
 
 // eslint-disable-next-line react/display-name
 
@@ -64,9 +66,6 @@ function Home() {
   );
 }
 
-function Form() {
-  return <h2>Form</h2>;
-}
 
 function Inputs() {
   return <h2>Inputs</h2>;
@@ -78,13 +77,17 @@ function Users() {
 
 
 export default function App() {
-
+  const [theme, setTheme] = React.useState('dark');
   //https://rsuitejs.com/components/sidenav/
   const [activeKey, setActiveKey] = React.useState('1');
   const [openKeys, setOpenKeys] = React.useState(['3', '4']);
 
   return (
 <Router>
+
+<CustomProvider theme={theme}>
+<div className="App">
+
   <Header>
       <Navbar appearance="default">
       <Navbar.Brand href="#">
@@ -119,9 +122,7 @@ export default function App() {
 
               <Content>
                   <Switch>
-                    <Route path="/form">
-                      <Form />
-                    </Route>
+                    <Route path='/form' render={(props)=> <Form {...props} />} />
                     <Route path="/inputs">
                       <Inputs />
                     </Route>
@@ -134,6 +135,10 @@ export default function App() {
                   </Switch>
               </Content>
       </Container>
+
+
+</div>
+</CustomProvider>
   </Router>
   );
 }
