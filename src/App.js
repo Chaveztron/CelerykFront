@@ -12,7 +12,7 @@ import Content from 'rsuite/Content';
 import Container from 'rsuite/Container';
 import Header from 'rsuite/Header';
 
-import Form from './containers/Form'
+import Form from './containers/Formulario'
 
 // eslint-disable-next-line react/display-name
 
