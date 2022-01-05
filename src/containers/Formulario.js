@@ -5,8 +5,12 @@ import { Form, Schema } from 'rsuite';
 import ButtonToolbar from 'rsuite/ButtonToolbar';
 import Button from 'rsuite/Button';
 
+import JSONTree from 'react-json-tree';
+
 
 const { StringType, NumberType } = Schema.Types;
+
+////************************************************************Validaciones */
 
 const model = Schema.Model({
   name: StringType().isRequired('This field is required.'),
@@ -32,6 +36,10 @@ const model = Schema.Model({
     .isRequired('This field is required.')
 });
 
+////************************************************************Validaciones */
+
+////************************************************************Componente TexField */
+
 const TextField = React.forwardRef((props, ref) => {
   const { name, label, accepter, ...rest } = props;
   return (
@@ -42,7 +50,11 @@ const TextField = React.forwardRef((props, ref) => {
   );
 });
 
+////************************************************************Componente TexField */
+
 const Formulario = () => {
+
+  ////************************************************************Declaracion de componente form y propiedades */
   const formRef = React.useRef();
   const [formError, setFormError] = React.useState({});
   const [formValue, setFormValue] = React.useState({
@@ -53,6 +65,9 @@ const Formulario = () => {
     verifyPassword: ''
   });
 
+  ////************************************************************Declaracion de componente form y propiedades */
+
+  ////************************************************************Accion del botton submit (aceptar, confirmar) */
   const handleSubmit = () => {
     if (!formRef.current.check()) {
       console.error('Form Error');
@@ -60,12 +75,15 @@ const Formulario = () => {
     }
     console.log(formValue, 'Form Value');
   };
+  ////************************************************************Accion del botton submit (aceptar, confirmar) */
 
+  ////************************************************************Otro botton*/
   const handleCheckEmail = () => {
     formRef.current.checkForField('email', checkResult => {
       console.log(checkResult);
     });
   };
+  ////************************************************************Otro botton*/
 
   return (
     <FlexboxGrid>
@@ -98,7 +116,8 @@ const Formulario = () => {
         </Form>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item colspan={12}>
-  {/*<JSONView formValue={formValue} formError={formError} />*/} 
+  <JSONTree data={formValue} /> 
+  <JSONTree data={formError} /> 
       </FlexboxGrid.Item>
     </FlexboxGrid>
   );
